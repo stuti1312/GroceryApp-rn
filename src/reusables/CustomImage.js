@@ -1,8 +1,8 @@
 import {Image} from 'react-native';
 import React from 'react';
 
-const Img = ({imageSrc, imageStyle}) => {
+const CustomImage = ({imageSrc, imageStyle}) => {
   return <Image source={imageSrc} style={imageStyle} />;
 };
 
-export default Img;
+export default CustomImage;

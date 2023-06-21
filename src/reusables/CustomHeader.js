@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 import React from 'react';
 import Colors from '../constants/Colors';
-import Img from './Img';
+import CustomImage from './CustomImage';
 
 const {width, height} = Dimensions.get('window');
 
-const Header = ({
+const CustomHeader = ({
   title,
   leftIcon,
   rightIcon,
@@ -22,19 +22,17 @@ const Header = ({
   return (
     <View style={styles.header}>
       <TouchableOpacity onPress={onClickLeftIcon} style={styles.btn}>
-        {/* <Img imgSrc={leftIcon} imgStyle={styles.icon} /> */}
-        <Image source={leftIcon} style={styles.icon} />
+        <CustomImage imageSrc={leftIcon} imageStyle={styles.icon} />
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
       <TouchableOpacity onPress={onClickRightIcon} style={styles.btn}>
-        {/* <Img imgSrc={rightIcon} imgStyle={styles.icon} /> */}
-        <Image source={rightIcon} style={styles.icon} />
+        <CustomImage imageSrc={rightIcon} imageStyle={styles.icon} />
       </TouchableOpacity>
     </View>
   );
 };
 
-export default Header;
+export default CustomHeader;
 
 const styles = StyleSheet.create({
   header: {

@@ -1,12 +1,12 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-const InputTxt = () => {
+const Wishlist = () => {
   return (
     <View>
-      <Text>InputTxt</Text>
+      <Text>Wishlist</Text>
     </View>
   );
 };
 
-export default InputTxt;
+export default Wishlist;
