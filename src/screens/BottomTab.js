@@ -1,12 +1,12 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
-import Colors from '../constants/Colors';
 import CustomImage from '../reusables/CustomImage';
-import Search from '../components/Search';
+import Home from './tabs/Home';
+import Search from './tabs/Search';
 import Wishlist from './tabs/Wishlist';
-import Notification from '../components/Notification';
-import Profile from '../components/Profile';
-import Home from '../components/Home';
+import Notification from './tabs/Notification';
+import Profile from './tabs/Profile';
+import Colors from '../constants/Colors';
 
 const BottomTab = props => {
   const [selectedTab, setSelectedTab] = useState(0);

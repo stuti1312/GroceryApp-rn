@@ -1,8 +1,8 @@
 import {View, StyleSheet, FlatList, Text, Dimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import CustomHeader from '../reusables/CustomHeader';
-import Colors from '../constants/Colors';
-import CustomImage from '../reusables/CustomImage';
+import CustomImage from '../../reusables/CustomImage';
+import CustomHeader from '../../reusables/CustomHeader';
+import Colors from '../../constants/Colors';
 
 const Home = ({navigation}) => {
   const [products, setProducts] = useState([]);

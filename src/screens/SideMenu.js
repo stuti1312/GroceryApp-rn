@@ -1,9 +1,9 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import Profile from '../components/Profile';
-import About from './drawer/About';
 import Dashboard from './Dashboard';
-import Home from '../components/Home';
+import Home from './tabs/Home';
+import Profile from './tabs/Profile';
+import About from './drawer/About';
 
 const Drawer = createDrawerNavigator();
 const SideMenu = () => {
