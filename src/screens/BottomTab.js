@@ -8,7 +8,7 @@ import Notification from '../components/Notification';
 import Profile from '../components/Profile';
 import Home from '../components/Home';
 
-const BottomTab = () => {
+const BottomTab = props => {
   const [selectedTab, setSelectedTab] = useState(0);
   const tabs = [
     {
@@ -40,7 +40,7 @@ const BottomTab = () => {
   return (
     <>
       {selectedTab == 0 ? (
-        <Home />
+        <Home {...props} />
       ) : selectedTab == 1 ? (
         <Search />
       ) : selectedTab == 2 ? (
@@ -60,7 +60,9 @@ const BottomTab = () => {
             }}
             key={item.index}>
             <CustomImage
-              imageSrc={selectedTab===item.index ? item.tabIconFill : item.tabIcon}
+              imageSrc={
+                selectedTab === item.index ? item.tabIconFill : item.tabIcon
+              }
               imageStyle={styles.imageStyle}
             />
           </TouchableOpacity>

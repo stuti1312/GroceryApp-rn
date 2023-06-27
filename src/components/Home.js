@@ -1,14 +1,10 @@
 import {View, StyleSheet, FlatList, Text, Dimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CustomHeader from '../reusables/CustomHeader';
-// import {useNavigation} from '@react-navigation/native';
-// import Cart from './Cart';
 import Colors from '../constants/Colors';
 import CustomImage from '../reusables/CustomImage';
 
-// const Home = ({navigation}) => {
-const Home = () => {
-  const navigation = useNavigation();
+const Home = ({navigation}) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -34,7 +30,7 @@ const Home = () => {
               ? item.title.substring(0, 25) + '...'
               : item.title}
           </Text>
-          <Text style={styles.desc}>
+          <Text>
             {item.description.length > 40
               ? item.description.substring(0, 35) + '...'
               : item.description}
@@ -50,12 +46,11 @@ const Home = () => {
       <CustomHeader
         leftIcon={require('../assests/icons/menu.png')}
         onClickLeftIcon={() => {
-          // navigation.openDrawer();
-          // console.log('left clicked');
+          navigation.openDrawer();
         }}
         rightIcon={require('../assests/icons/cart.png')}
         onClickRightIcon={() => {
-          // navigation.navigate('cart');
+          navigation.navigate('cart');
         }}
         title="Grocery App"
       />
@@ -63,7 +58,7 @@ const Home = () => {
         data={products}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-        // numColumns={2}
+        numColumns={2}
         style={styles.list}
       />
     </View>
@@ -84,8 +79,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productImage: {width: 100, height: 100, margin: 10, alignSelf: 'center'},
-  itemDetails:{padding:10,},
+  itemDetails: {padding: 10},
   name: {fontSize: 18, fontWeight: '600'},
-  desc: {},
-  price: {fontSize: 18, fontWeight: '600', color: 'green',marginTop:10},
+  price: {fontSize: 18, fontWeight: '600', color: 'green', marginTop: 10},
 });

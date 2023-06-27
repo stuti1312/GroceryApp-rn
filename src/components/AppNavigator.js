@@ -2,6 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import SideMenu from '../screens/SideMenu';
+import Cart from './Cart';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ const AppNavigator = () => {
           component={SideMenu}
           options={{headerShown: false}}
         />
+        <Stack.Screen name="cart" component={Cart} />
       </Stack.Navigator>
     </NavigationContainer>
   );

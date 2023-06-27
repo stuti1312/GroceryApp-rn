@@ -3,6 +3,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import Profile from '../components/Profile';
 import About from '../components/About';
 import Dashboard from './Dashboard';
+import Home from '../components/Home';
 
 const Drawer = createDrawerNavigator();
 const SideMenu = () => {
@@ -11,6 +12,11 @@ const SideMenu = () => {
       <Drawer.Screen
         name="dashboard"
         component={Dashboard}
+        options={{headerShown: false}}
+      />
+      <Drawer.Screen
+        name="home"
+        component={Home}
         options={{headerShown: false}}
       />
       <Drawer.Screen name="profile" component={Profile} />
