@@ -1,4 +1,11 @@
-import {View, StyleSheet, FlatList, Text, Dimensions} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CustomImage from '../../reusables/CustomImage';
 import CustomHeader from '../../reusables/CustomHeader';
@@ -19,7 +26,11 @@ const Home = ({navigation}) => {
 
   const renderItem = ({item}) => {
     return (
-      <View style={styles.listItems}>
+      <TouchableOpacity
+        style={styles.listItems}
+        onPress={() => {
+          navigation.navigate('productDetails', {data: item});
+        }}>
         <CustomImage
           imageSrc={{uri: item.image}}
           imageStyle={styles.productImage}
@@ -37,7 +48,7 @@ const Home = ({navigation}) => {
           </Text>
           <Text style={styles.price}>${item.price}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
