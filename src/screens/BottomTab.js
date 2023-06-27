@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import Colors from '../constants/Colors';
 import CustomImage from '../reusables/CustomImage';
 import Search from '../components/Search';
-import Wishlist from '../components/Wishlist';
+import Wishlist from './tabs/Wishlist';
 import Notification from '../components/Notification';
 import Profile from '../components/Profile';
 import Home from '../components/Home';

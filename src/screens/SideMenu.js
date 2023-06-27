@@ -1,7 +1,7 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Profile from '../components/Profile';
-import About from '../components/About';
+import About from './drawer/About';
 import Dashboard from './Dashboard';
 import Home from '../components/Home';
 
