@@ -6,7 +6,6 @@ import Colors from '../constants/Colors';
 import CustomButton from '../reusables/CustomButton';
 
 const ProductDetails = ({navigation, route}) => {
-  console.log('route?.params?.data', route?.params?.data);
   return (
     <View style={styles.container}>
       <CustomHeader

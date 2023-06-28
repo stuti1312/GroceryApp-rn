@@ -56,7 +56,6 @@ const BottomTab = props => {
             style={styles.bottomTabs}
             onPress={() => {
               setSelectedTab(item.index);
-              console.log('item index', item.index);
             }}
             key={item.index}>
             <CustomImage

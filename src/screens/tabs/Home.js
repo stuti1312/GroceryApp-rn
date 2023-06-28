@@ -5,6 +5,7 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CustomImage from '../../reusables/CustomImage';
@@ -13,6 +14,7 @@ import Colors from '../../constants/Colors';
 
 const Home = ({navigation}) => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getProducts();
@@ -21,7 +23,10 @@ const Home = ({navigation}) => {
   const getProducts = () => {
     fetch('https://fakestoreapi.com/products')
       .then(res => res.json())
-      .then(json => setProducts(json));
+      .then(json => {
+        setProducts(json);
+        setIsLoading(false);
+      });
   };
 
   const renderItem = ({item}) => {
@@ -65,13 +70,24 @@ const Home = ({navigation}) => {
         }}
         title="Grocery App"
       />
-      <FlatList
-        data={products}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        numColumns={2}
-        style={styles.list}
-      />
+      {isLoading ? (
+        <View
+          style={{
+            flex: 1,
+            alignSelf: 'center',
+            justifyContent: 'center',
+          }}>
+          <ActivityIndicator color={Colors.BLACK} size={'large'} />
+        </View>
+      ) : (
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          numColumns={2}
+          style={styles.list}
+        />
+      )}
     </View>
   );
 };
