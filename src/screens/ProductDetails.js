@@ -5,7 +5,7 @@ import CustomImage from '../reusables/CustomImage';
 import Colors from '../constants/Colors';
 import CustomButton from '../reusables/CustomButton';
 
-const ProductDetails = ({navigation}) => {
+const ProductDetails = ({navigation, route}) => {
   console.log('route?.params?.data', route?.params?.data);
   return (
     <View style={styles.container}>
@@ -34,7 +34,7 @@ const ProductDetails = ({navigation}) => {
         />
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.wishlistBtn, {top: 150}]}
+        style={[styles.wishlistBtn, {top: 155}]}
         onPress={() => {}}>
         <CustomImage
           imageSrc={require('../assests/icons/share.png')}
@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
     right: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-    backgroundColor: 'grey',
+    height: 45,
+    width: 45,
+    borderRadius: 45 / 2,
+    backgroundColor: 'lightgrey',
   },
   wishlistIcon: {height: 25, width: 25},
 });

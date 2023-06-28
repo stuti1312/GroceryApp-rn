@@ -55,11 +55,11 @@ const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
       <CustomHeader
-        leftIcon={require('../assests/icons/menu.png')}
+        leftIcon={require('../../assests/icons/menu.png')}
         onClickLeftIcon={() => {
           navigation.openDrawer();
         }}
-        rightIcon={require('../assests/icons/cart.png')}
+        rightIcon={require('../../assests/icons/cart.png')}
         onClickRightIcon={() => {
           navigation.navigate('cart');
         }}

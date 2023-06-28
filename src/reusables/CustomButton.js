@@ -17,13 +17,13 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   btn: {
-    width: Dimensions.get('window').width,
+    width: Dimensions.get('window').width - 30,
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
     marginTop: 30,
-    borderRadius: 20,
+    borderRadius: 10,
   },
   title: {
     fontSize: 20,

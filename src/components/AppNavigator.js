@@ -17,7 +17,11 @@ const AppNavigator = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen name="cart" component={Cart} />
-        <Stack.Screen name="productDetails" component={ProductDetails} />
+        <Stack.Screen
+          name="productDetails"
+          component={ProductDetails}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
