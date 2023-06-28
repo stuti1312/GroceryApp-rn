@@ -2,8 +2,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import SideMenu from '../screens/SideMenu';
-import Cart from './Cart';
 import ProductDetails from '../screens/ProductDetails';
+import Cart from './Cart';
 
 const Stack = createNativeStackNavigator();
 

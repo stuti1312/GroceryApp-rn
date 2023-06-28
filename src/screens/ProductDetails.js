@@ -2,8 +2,8 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import CustomHeader from '../reusables/CustomHeader';
 import CustomImage from '../reusables/CustomImage';
-import Colors from '../constants/Colors';
 import CustomButton from '../reusables/CustomButton';
+import Colors from '../constants/Colors';
 
 const ProductDetails = ({navigation, route}) => {
   return (

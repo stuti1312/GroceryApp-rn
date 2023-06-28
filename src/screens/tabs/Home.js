@@ -8,6 +8,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {addProducts} from '../../redux/slices/ProductSlice';
 import CustomImage from '../../reusables/CustomImage';
 import CustomHeader from '../../reusables/CustomHeader';
 import Colors from '../../constants/Colors';
@@ -20,12 +22,14 @@ const Home = ({navigation}) => {
     getProducts();
   }, []);
 
+  const dispatch = useDispatch();
   const getProducts = () => {
     fetch('https://fakestoreapi.com/products')
       .then(res => res.json())
       .then(json => {
         setProducts(json);
         setIsLoading(false);
+        dispatch(addProducts(json));
       });
   };
 

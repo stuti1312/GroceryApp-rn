@@ -7,8 +7,8 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import Colors from '../constants/Colors';
 import CustomImage from './CustomImage';
+import Colors from '../constants/Colors';
 
 const {width, height} = Dimensions.get('window');
 
