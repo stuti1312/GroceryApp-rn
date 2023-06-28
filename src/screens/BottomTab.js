@@ -1,5 +1,5 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
+import {Keyboard, StyleSheet, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import CustomImage from '../reusables/CustomImage';
 import Home from './tabs/Home';
 import Search from './tabs/Search';
@@ -10,6 +10,20 @@ import Colors from '../constants/Colors';
 
 const BottomTab = props => {
   const [selectedTab, setSelectedTab] = useState(0);
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  useEffect(() => {
+    const keyboardShowListener = Keyboard.addListener('keyboardDidShow', () => {
+      setIsKeyboardVisible(true);
+    });
+    const keyboardHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      setIsKeyboardVisible(false);
+    });
+    return () => {
+      keyboardShowListener.remove();
+      keyboardHideListener.remove();
+    };
+  }, []);
+
   const tabs = [
     {
       index: 0,
@@ -50,23 +64,25 @@ const BottomTab = props => {
       ) : (
         <Profile />
       )}
-      <View style={styles.bottomTabView}>
-        {tabs.map(item => (
-          <TouchableOpacity
-            style={styles.bottomTabs}
-            onPress={() => {
-              setSelectedTab(item.index);
-            }}
-            key={item.index}>
-            <CustomImage
-              imageSrc={
-                selectedTab === item.index ? item.tabIconFill : item.tabIcon
-              }
-              imageStyle={styles.imageStyle}
-            />
-          </TouchableOpacity>
-        ))}
-      </View>
+      {!isKeyboardVisible && (
+        <View style={styles.bottomTabView}>
+          {tabs.map(item => (
+            <TouchableOpacity
+              style={styles.bottomTabs}
+              onPress={() => {
+                setSelectedTab(item.index);
+              }}
+              key={item.index}>
+              <CustomImage
+                imageSrc={
+                  selectedTab === item.index ? item.tabIconFill : item.tabIcon
+                }
+                imageStyle={styles.imageStyle}
+              />
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
     </>
   );
 };

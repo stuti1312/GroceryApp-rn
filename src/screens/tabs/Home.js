@@ -1,7 +1,6 @@
 import {
   View,
   StyleSheet,
-  FlatList,
   Text,
   Dimensions,
   TouchableOpacity,
@@ -13,6 +12,7 @@ import {addProducts} from '../../redux/slices/ProductSlice';
 import CustomImage from '../../reusables/CustomImage';
 import CustomHeader from '../../reusables/CustomHeader';
 import Colors from '../../constants/Colors';
+import CustomFlatlist from '../../reusables/CustomFlatlist';
 
 const Home = ({navigation}) => {
   const [products, setProducts] = useState([]);
@@ -84,13 +84,7 @@ const Home = ({navigation}) => {
           <ActivityIndicator color={Colors.BLACK} size={'large'} />
         </View>
       ) : (
-        <FlatList
-          data={products}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          numColumns={2}
-          style={styles.list}
-        />
+        <CustomFlatlist listData={products} listRenderItem={renderItem} />
       )}
     </View>
   );
@@ -100,7 +94,7 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {flex: 1},
-  list: {marginHorizontal: 10},
+  list: {marginHorizontal: 10, paddingBottom: 20},
   listItems: {
     width: Dimensions.get('window').width,
     height: 100,
