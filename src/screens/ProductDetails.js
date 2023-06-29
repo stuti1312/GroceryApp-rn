@@ -4,8 +4,11 @@ import CustomHeader from '../reusables/CustomHeader';
 import CustomImage from '../reusables/CustomImage';
 import CustomButton from '../reusables/CustomButton';
 import Colors from '../constants/Colors';
+import {useDispatch} from 'react-redux';
+import {addItemToWishlist} from '../redux/slices/WishlistSlice';
 
 const ProductDetails = ({navigation, route}) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <CustomHeader
@@ -26,7 +29,11 @@ const ProductDetails = ({navigation, route}) => {
       <Text style={styles.name}>{route?.params?.data?.title}</Text>
       <Text style={styles.desc}>{route?.params?.data?.description}</Text>
       <Text style={styles.price}>${route?.params?.data?.price}</Text>
-      <TouchableOpacity style={styles.wishlistBtn} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.wishlistBtn}
+        onPress={() => {
+          dispatch(addItemToWishlist(route?.params?.data));
+        }}>
         <CustomImage
           imageSrc={require('../assests/icons/wishlist.png')}
           imageStyle={styles.wishlistIcon}

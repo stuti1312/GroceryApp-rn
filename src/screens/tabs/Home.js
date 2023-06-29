@@ -94,7 +94,6 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {flex: 1},
-  list: {marginHorizontal: 10, paddingBottom: 20},
   listItems: {
     width: Dimensions.get('window').width,
     height: 100,
