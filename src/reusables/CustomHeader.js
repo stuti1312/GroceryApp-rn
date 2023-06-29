@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import CustomImage from './CustomImage';
 import Colors from '../constants/Colors';
+import {useSelector} from 'react-redux';
 
 const {width, height} = Dimensions.get('window');
 
@@ -19,6 +20,7 @@ const CustomHeader = ({
   onClickLeftIcon,
   onClickRightIcon,
 }) => {
+  const cartCount = useSelector(state => state.cart.data.length);
   return (
     <View style={styles.header}>
       <TouchableOpacity onPress={onClickLeftIcon} style={styles.btn}>
@@ -27,6 +29,9 @@ const CustomHeader = ({
       <Text style={styles.title}>{title}</Text>
       <TouchableOpacity onPress={onClickRightIcon} style={styles.btn}>
         <CustomImage imageSrc={rightIcon} imageStyle={styles.icon} />
+        <View style={styles.cartCountIcon}>
+          <Text style={styles.cartCount}>{cartCount}</Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -47,4 +52,18 @@ const styles = StyleSheet.create({
   title: {color: Colors.WHITE, fontSize: 20},
   btn: {height: 40, width: 40, justifyContent: 'center', alignItems: 'center'},
   icon: {height: 30, width: 30, tintColor: Colors.WHITE},
+  cartCountIcon: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    backgroundColor: Colors.WHITE,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cartCount: {
+    color: Colors.BLACK,
+  },
 });

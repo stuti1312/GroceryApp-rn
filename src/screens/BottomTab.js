@@ -56,13 +56,13 @@ const BottomTab = props => {
       {selectedTab == 0 ? (
         <Home {...props} />
       ) : selectedTab == 1 ? (
-        <Search />
+        <Search {...props} />
       ) : selectedTab == 2 ? (
-        <Wishlist />
+        <Wishlist {...props} />
       ) : selectedTab == 3 ? (
-        <Notification />
+        <Notification {...props} />
       ) : (
-        <Profile />
+        <Profile {...props} />
       )}
       {!isKeyboardVisible && (
         <View style={styles.bottomTabView}>

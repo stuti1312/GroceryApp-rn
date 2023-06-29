@@ -12,11 +12,11 @@ import CustomHeader from '../../reusables/CustomHeader';
 import CustomFlatlist from '../../reusables/CustomFlatlist';
 import CustomImage from '../../reusables/CustomImage';
 
-const Wishlist = () => {
-  const itemsAddedToWishlist = useSelector(state => state.wishlist);
+const Wishlist = ({navigation}) => {
+  const wishlistItems = useSelector(state => state.wishlist);
   const [addedItems, setaddedItems] = useState([]);
   useEffect(() => {
-    setaddedItems(itemsAddedToWishlist.data);
+    setaddedItems(wishlistItems.data);
   }, []);
 
   const renderItem = ({item}) => {
@@ -58,7 +58,6 @@ const Wishlist = () => {
 export default Wishlist;
 
 const styles = StyleSheet.create({
-  list: {marginHorizontal: 10, paddingBottom: 20},
   listItems: {
     width: Dimensions.get('window').width,
     height: 100,

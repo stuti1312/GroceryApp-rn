@@ -15,8 +15,8 @@ import Colors from '../../constants/Colors';
 
 const Search = ({navigation}) => {
   const [search, setSearch] = useState('');
-  const products = useSelector(state => state);
-  const [oldData, setOldData] = useState(products.product.data);
+  const products = useSelector(state => state.product);
+  const [oldData, setOldData] = useState(products.data);
   const [searchedItemList, setsearchedItemList] = useState(oldData);
   const filteredData = text => {
     let newData = oldData.filter(item => {

@@ -1,4 +1,10 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import CustomHeader from '../reusables/CustomHeader';
 import CustomImage from '../reusables/CustomImage';
@@ -6,6 +12,7 @@ import CustomButton from '../reusables/CustomButton';
 import Colors from '../constants/Colors';
 import {useDispatch} from 'react-redux';
 import {addItemToWishlist} from '../redux/slices/WishlistSlice';
+import {addToCart} from '../redux/slices/CartSlice';
 
 const ProductDetails = ({navigation, route}) => {
   const dispatch = useDispatch();
@@ -22,37 +29,41 @@ const ProductDetails = ({navigation, route}) => {
         }}
         title={'Product deatils'}
       />
-      <CustomImage
-        imageSrc={{uri: route?.params?.data?.image}}
-        imageStyle={styles.bannerImage}
-      />
-      <Text style={styles.name}>{route?.params?.data?.title}</Text>
-      <Text style={styles.desc}>{route?.params?.data?.description}</Text>
-      <Text style={styles.price}>${route?.params?.data?.price}</Text>
-      <TouchableOpacity
-        style={styles.wishlistBtn}
-        onPress={() => {
-          dispatch(addItemToWishlist(route?.params?.data));
-        }}>
+      <ScrollView style={{marginVertical: 10}}>
         <CustomImage
-          imageSrc={require('../assests/icons/wishlist.png')}
-          imageStyle={styles.wishlistIcon}
+          imageSrc={{uri: route?.params?.data?.image}}
+          imageStyle={styles.bannerImage}
         />
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.wishlistBtn, {top: 155}]}
-        onPress={() => {}}>
-        <CustomImage
-          imageSrc={require('../assests/icons/share.png')}
-          imageStyle={styles.wishlistIcon}
+        <Text style={styles.name}>{route?.params?.data?.title}</Text>
+        <Text style={styles.desc}>{route?.params?.data?.description}</Text>
+        <Text style={styles.price}>${route?.params?.data?.price}</Text>
+        <TouchableOpacity
+          style={styles.wishlistBtn}
+          onPress={() => {
+            dispatch(addItemToWishlist(route?.params?.data));
+          }}>
+          <CustomImage
+            imageSrc={require('../assests/icons/wishlist.png')}
+            imageStyle={styles.wishlistIcon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.wishlistBtn, {top: 155}]}
+          onPress={() => {}}>
+          <CustomImage
+            imageSrc={require('../assests/icons/share.png')}
+            imageStyle={styles.wishlistIcon}
+          />
+        </TouchableOpacity>
+        <CustomButton
+          title={'Add to Cart'}
+          bgColor={Colors.SKYBLUE}
+          textColor={Colors.WHITE}
+          onClick={() => {
+            dispatch(addToCart(route?.params?.data));
+          }}
         />
-      </TouchableOpacity>
-      <CustomButton
-        title={'Add to Cart'}
-        bgColor={Colors.SKYBLUE}
-        textColor={Colors.WHITE}
-        onClick={() => {}}
-      />
+      </ScrollView>
     </View>
   );
 };
