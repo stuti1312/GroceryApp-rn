@@ -19,6 +19,7 @@ const CustomHeader = ({
   rightIcon,
   onClickLeftIcon,
   onClickRightIcon,
+  isCart,
 }) => {
   const cartCount = useSelector(state => state.cart.data.length);
   return (
@@ -27,12 +28,16 @@ const CustomHeader = ({
         <CustomImage imageSrc={leftIcon} imageStyle={styles.icon} />
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
-      <TouchableOpacity onPress={onClickRightIcon} style={styles.btn}>
-        <CustomImage imageSrc={rightIcon} imageStyle={styles.icon} />
-        <View style={styles.cartCountIcon}>
-          <Text style={styles.cartCount}>{cartCount}</Text>
-        </View>
-      </TouchableOpacity>
+      {isCart ? (
+        <TouchableOpacity onPress={onClickRightIcon} style={styles.btn}>
+          <CustomImage imageSrc={rightIcon} imageStyle={styles.icon} />
+          <View style={styles.cartCountIcon}>
+            <Text style={styles.cartCount}>{cartCount}</Text>
+          </View>
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.btn}></View>
+      )}
     </View>
   );
 };

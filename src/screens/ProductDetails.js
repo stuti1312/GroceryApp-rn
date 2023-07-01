@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import CustomHeader from '../reusables/CustomHeader';
 import CustomImage from '../reusables/CustomImage';
 import CustomButton from '../reusables/CustomButton';
@@ -16,6 +16,8 @@ import {addToCart} from '../redux/slices/CartSlice';
 
 const ProductDetails = ({navigation, route}) => {
   const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(1);
+  const itemData = route?.params?.data;
   return (
     <View style={styles.container}>
       <CustomHeader
@@ -28,19 +30,41 @@ const ProductDetails = ({navigation, route}) => {
           navigation.navigate('cart');
         }}
         title={'Product deatils'}
+        isCart={true}
       />
       <ScrollView style={{marginVertical: 10}}>
         <CustomImage
-          imageSrc={{uri: route?.params?.data?.image}}
+          imageSrc={{uri: itemData?.image}}
           imageStyle={styles.bannerImage}
         />
-        <Text style={styles.name}>{route?.params?.data?.title}</Text>
-        <Text style={styles.desc}>{route?.params?.data?.description}</Text>
-        <Text style={styles.price}>${route?.params?.data?.price}</Text>
+        <Text style={styles.name}>{itemData?.title}</Text>
+        <Text style={styles.desc}>{itemData?.description}</Text>
+        <View style={styles.qtyPrice}>
+          <Text style={styles.price}>${itemData?.price}</Text>
+          <View style={styles.qtyContainer}>
+            <TouchableOpacity
+              style={styles.operators}
+              onPress={() => {
+                if (quantity > 1) {
+                  setQuantity(quantity - 1);
+                }
+              }}>
+              <Text style={styles.operands}>-</Text>
+            </TouchableOpacity>
+            <Text style={[styles.quantity, styles.operands]}>{quantity}</Text>
+            <TouchableOpacity
+              style={styles.operators}
+              onPress={() => {
+                setQuantity(quantity + 1);
+              }}>
+              <Text style={styles.operands}>+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
         <TouchableOpacity
           style={styles.wishlistBtn}
           onPress={() => {
-            dispatch(addItemToWishlist(route?.params?.data));
+            dispatch(addItemToWishlist(itemData));
           }}>
           <CustomImage
             imageSrc={require('../assests/icons/wishlist.png')}
@@ -49,7 +73,9 @@ const ProductDetails = ({navigation, route}) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.wishlistBtn, {top: 155}]}
-          onPress={() => {}}>
+          onPress={() => {
+            onShare(itemData);
+          }}>
           <CustomImage
             imageSrc={require('../assests/icons/share.png')}
             imageStyle={styles.wishlistIcon}
@@ -60,7 +86,7 @@ const ProductDetails = ({navigation, route}) => {
           bgColor={Colors.SKYBLUE}
           textColor={Colors.WHITE}
           onClick={() => {
-            dispatch(addToCart(route?.params?.data));
+            dispatch(addToCart({...itemData, qty: quantity}));
           }}
         />
       </ScrollView>
@@ -92,6 +118,27 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 20,
   },
+  qtyPrice: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '90%',
+  },
+  qtyContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  operators: {
+    height: 30,
+    width: '20%',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: Colors.BLACK,
+    alignItems: 'center',
+  },
+  operands: {fontSize: 18, fontWeight: '600', color: Colors.BLACK},
+  quantity: {marginHorizontal: 5},
   wishlistBtn: {
     position: 'absolute',
     top: 100,

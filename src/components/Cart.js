@@ -6,19 +6,25 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import CustomImage from '../reusables/CustomImage';
 import CustomHeader from '../reusables/CustomHeader';
 import CustomFlatlist from '../reusables/CustomFlatlist';
 import Colors from '../constants/Colors';
+import {
+  addToCart,
+  reduceItemQtyInCart,
+  removeItemFromCart,
+} from '../redux/slices/CartSlice';
 
 const Cart = ({navigation}) => {
   const cartItems = useSelector(state => state.cart);
   const [addedItems, setaddedItems] = useState([]);
   useEffect(() => {
     setaddedItems(cartItems.data);
-  }, []);
-  const renderItem = ({item}) => {
+  }, [cartItems]);
+  const dispatch = useDispatch();
+  const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
         style={styles.listItems}
@@ -31,16 +37,39 @@ const Cart = ({navigation}) => {
         />
         <View style={styles.itemDetails}>
           <Text style={styles.name}>
-            {item.title.length > 30
-              ? item.title.substring(0, 25) + '...'
-              : item.title}
+            {item?.title?.length > 30
+              ? item?.title?.substring(0, 25) + '...'
+              : item?.title}
           </Text>
           <Text>
-            {item.description.length > 40
-              ? item.description.substring(0, 35) + '...'
-              : item.description}
+            {item?.description?.length > 40
+              ? item?.description?.substring(0, 35) + '...'
+              : item?.description}
           </Text>
-          <Text style={styles.price}>${item.price}</Text>
+          <View style={styles.qtyPrice}>
+            <Text style={styles.price}>${item.price}</Text>
+            <View style={styles.qtyContainer}>
+              <TouchableOpacity
+                style={styles.operators}
+                onPress={() => {
+                  if (item.qty > 1) {
+                    dispatch(reduceItemQtyInCart(item));
+                  } else {
+                    dispatch(removeItemFromCart(index));
+                  }
+                }}>
+                <Text style={styles.operands}>-</Text>
+              </TouchableOpacity>
+              <Text style={[styles.quantity, styles.operands]}>{item.qty}</Text>
+              <TouchableOpacity
+                style={styles.operators}
+                onPress={() => {
+                  dispatch(addToCart({...item, qty: item.qty}));
+                }}>
+                <Text style={styles.operands}>+</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </TouchableOpacity>
     );
@@ -48,7 +77,13 @@ const Cart = ({navigation}) => {
 
   return (
     <View>
-      <CustomHeader title={'Cart Items'} />
+      <CustomHeader
+        title={'Cart Items'}
+        leftIcon={require('../assests/icons/backArrow.png')}
+        onClickLeftIcon={() => {
+          navigation.goBack();
+        }}
+      />
       <CustomFlatlist listData={addedItems} listRenderItem={renderItem} />
     </View>
   );
@@ -68,5 +103,26 @@ const styles = StyleSheet.create({
   productImage: {width: 100, height: 100, margin: 10, alignSelf: 'center'},
   itemDetails: {padding: 10},
   name: {fontSize: 18, fontWeight: '600'},
-  price: {fontSize: 18, fontWeight: '600', color: 'green', marginTop: 10},
+  qtyPrice: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  price: {fontSize: 18, fontWeight: '600', color: 'green'},
+  qtyContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  operators: {
+    height: 25,
+    width: '20%',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: Colors.BLACK,
+    alignItems: 'center',
+  },
+  operands: {fontSize: 16, fontWeight: '600', color: Colors.BLACK},
+  quantity: {marginHorizontal: 5},
 });

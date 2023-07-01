@@ -29,6 +29,9 @@ const Home = ({navigation}) => {
       .then(json => {
         setProducts(json);
         setIsLoading(false);
+        json.map(item => {
+          item.qty = 1;
+        });
         dispatch(addProducts(json));
       });
   };
@@ -73,6 +76,7 @@ const Home = ({navigation}) => {
           navigation.navigate('cart');
         }}
         title="Grocery App"
+        isCart={true}
       />
       {isLoading ? (
         <View
