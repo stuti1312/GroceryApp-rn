@@ -53,7 +53,13 @@ const Search = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <CustomHeader title={'Search Items'} />
+      <CustomHeader
+        leftIcon={require('../../assests/icons/backArrow.png')}
+        onClickLeftIcon={() => {
+          navigation.goBack();
+        }}
+        title={'Search Items'}
+      />
       <View style={styles.searchbar}>
         <TextInput
           placeholder="Search your item here"

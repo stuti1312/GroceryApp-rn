@@ -49,7 +49,13 @@ const Wishlist = ({navigation}) => {
 
   return (
     <View>
-      <CustomHeader title={'Wistlist Items'} />
+      <CustomHeader
+        leftIcon={require('../../assests/icons/backArrow.png')}
+        onClickLeftIcon={() => {
+          navigation.goBack();
+        }}
+        title={'Wistlist Items'}
+      />
       <CustomFlatlist listData={addedItems} listRenderItem={renderItem} />
     </View>
   );

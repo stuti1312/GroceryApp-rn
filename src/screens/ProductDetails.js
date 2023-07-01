@@ -1,5 +1,6 @@
 import {
   ScrollView,
+  Share,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -18,6 +19,11 @@ const ProductDetails = ({navigation, route}) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const itemData = route?.params?.data;
+  const onShare = async data => {
+    await Share.share({
+      message: `Please check this out! ${'\n'}${data.title}`,
+    });
+  };
   return (
     <View style={styles.container}>
       <CustomHeader
