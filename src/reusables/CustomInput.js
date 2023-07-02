@@ -1,10 +1,10 @@
-import {View, Text} from 'react-native';
+import {View, TextInput} from 'react-native';
 import React from 'react';
 
-const CustomInput = () => {
+const CustomInput = ({placeholderText, inputStyle}) => {
   return (
     <View>
-      <Text>InputTxt</Text>
+      <TextInput placeholder={placeholderText} style={inputStyle} />
     </View>
   );
 };

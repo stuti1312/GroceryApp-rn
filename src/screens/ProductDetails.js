@@ -1,4 +1,5 @@
 import {
+  Dimensions,
   ScrollView,
   Share,
   StyleSheet,
@@ -7,22 +8,35 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
 import CustomHeader from '../reusables/CustomHeader';
 import CustomImage from '../reusables/CustomImage';
 import CustomButton from '../reusables/CustomButton';
 import Colors from '../constants/Colors';
-import {useDispatch} from 'react-redux';
 import {addItemToWishlist} from '../redux/slices/WishlistSlice';
 import {addToCart} from '../redux/slices/CartSlice';
+import LoginModal from '../reusables/LoginModal';
 
 const ProductDetails = ({navigation, route}) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
+  const [modalVisible, setModalVisible] = useState(false);
   const itemData = route?.params?.data;
   const onShare = async data => {
     await Share.share({
       message: `Please check this out! ${'\n'}${data.title}`,
     });
+  };
+  const checkLoginStatus = async () => {
+    let isUserLoggedIn = false;
+    const loginStatus = await AsyncStorage.getItem('IS_USER_LOGGED_IN');
+    if (loginStatus == null) {
+      isUserLoggedIn = false;
+    } else {
+      isUserLoggedIn = true;
+    }
+    return isUserLoggedIn;
   };
   return (
     <View style={styles.container}>
@@ -38,7 +52,7 @@ const ProductDetails = ({navigation, route}) => {
         title={'Product deatils'}
         isCart={true}
       />
-      <ScrollView style={{marginVertical: 10}}>
+      <ScrollView style={styles.scrollviewMargin}>
         <CustomImage
           imageSrc={{uri: itemData?.image}}
           imageStyle={styles.bannerImage}
@@ -70,7 +84,9 @@ const ProductDetails = ({navigation, route}) => {
         <TouchableOpacity
           style={styles.wishlistBtn}
           onPress={() => {
-            dispatch(addItemToWishlist(itemData));
+            checkLoginStatus() === true
+              ? dispatch(addItemToWishlist(itemData))
+              : setModalVisible(true);
           }}>
           <CustomImage
             imageSrc={require('../assests/icons/wishlist.png')}
@@ -89,13 +105,29 @@ const ProductDetails = ({navigation, route}) => {
         </TouchableOpacity>
         <CustomButton
           title={'Add to Cart'}
-          bgColor={Colors.SKYBLUE}
-          textColor={Colors.WHITE}
+          btnTextStyle={styles.btnTextStyle}
+          btnStyle={styles.btnStyle}
           onClick={() => {
-            dispatch(addToCart({...itemData, qty: quantity}));
+            checkLoginStatus() === true
+              ? dispatch(addToCart({...itemData, qty: quantity}))
+              : setModalVisible(true);
           }}
         />
       </ScrollView>
+      <LoginModal
+        isVisible={modalVisible}
+        onClickCancel={() => {
+          setModalVisible(false);
+        }}
+        onClickLogin={() => {
+          setModalVisible(false);
+          navigation.navigate('login');
+        }}
+        onClickSignup={() => {
+          setModalVisible(false);
+          navigation.navigate('signup');
+        }}
+      />
     </View>
   );
 };
@@ -157,4 +189,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgrey',
   },
   wishlistIcon: {height: 25, width: 25},
+  scrollviewMargin: {marginVertical: 10},
+  btnStyle: {
+    backgroundColor: Colors.SKYBLUE,
+    width: Dimensions.get('window').width - 40,
+  },
+  btnTextStyle: {color: Colors.WHITE, fontSize: 20},
 });

@@ -79,12 +79,7 @@ const Home = ({navigation}) => {
         isCart={true}
       />
       {isLoading ? (
-        <View
-          style={{
-            flex: 1,
-            alignSelf: 'center',
-            justifyContent: 'center',
-          }}>
+        <View style={styles.loader}>
           <ActivityIndicator color={Colors.BLACK} size={'large'} />
         </View>
       ) : (
@@ -110,4 +105,9 @@ const styles = StyleSheet.create({
   itemDetails: {padding: 10},
   name: {fontSize: 18, fontWeight: '600'},
   price: {fontSize: 18, fontWeight: '600', color: 'green', marginTop: 10},
+  loader: {
+    flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
 });
