@@ -1,6 +1,7 @@
 import {Alert, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CustomInput from '../reusables/CustomInput';
 import CustomButton from '../reusables/CustomButton';
 import Colors from '../constants/Colors';
@@ -14,12 +15,19 @@ const Login = ({navigation, route}) => {
       .where('email', '==', email)
       .get()
       .then(output => {
-        if (password == output.docs[0]._data.password) {
-          navigation.navigate('dashboard');
+        if (output.docs[0]._data.password == password) {
+          loggedIn();
         } else {
-          Alert.alert('Email or password is wrong! Please enter right credentials!');
+          Alert.alert('Wrong Password');
         }
+      })
+      .catch(error => {
+        Alert.alert('No user Found');
       });
+  };
+  const loggedIn = async () => {
+    await AsyncStorage.setItem('IS_USER_LOGGED_IN', 'yes');
+    navigation.navigate('dashboard');
   };
   return (
     <View style={styles.container}>
