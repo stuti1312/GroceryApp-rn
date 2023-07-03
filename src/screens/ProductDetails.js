@@ -25,7 +25,7 @@ const ProductDetails = ({navigation, route}) => {
   const itemData = route?.params?.data;
   const onShare = async data => {
     await Share.share({
-      message: `Please check this out! ${'\n'}${data.title}`,
+      message: `Please check this out! ${'\n'}${data.title} ${'\n'}${data.image}`,
     });
   };
   const checkLoginStatus = async () => {
