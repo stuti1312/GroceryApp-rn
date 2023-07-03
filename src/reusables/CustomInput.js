@@ -12,9 +12,7 @@ const CustomInput = ({
       placeholder={placeholderText}
       style={inputStyle}
       value={inputValue}
-      onChangeText={() => {
-        onInputChange();
-      }}
+      onChangeText={onInputChange}
     />
   );
 };

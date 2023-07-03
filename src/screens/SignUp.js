@@ -1,35 +1,69 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import firestore from '@react-native-firebase/firestore';
 import CustomInput from '../reusables/CustomInput';
 import CustomButton from '../reusables/CustomButton';
 import Colors from '../constants/Colors';
 
 const SignUp = ({navigation}) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const addUser = () => {
+    firestore()
+      .collection('Users')
+      .add({
+        name: name,
+        email: email,
+        mobile: mobile,
+        password: password,
+      })
+      .then(() => {
+        navigation.navigate('login');
+      });
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Sign Up</Text>
       <CustomInput
         placeholderText={'Enter Full Name'}
         inputStyle={styles.input}
+        inputValue={name}
+        onInputChange={input => setName(input)}
       />
-      <CustomInput placeholderText={'Enter Email'} inputStyle={styles.input} />
+      <CustomInput
+        placeholderText={'Enter Email'}
+        inputStyle={styles.input}
+        inputValue={email}
+        onInputChange={input => setEmail(input)}
+      />
       <CustomInput
         placeholderText={'Enter Mobile Number'}
         inputStyle={styles.input}
+        inputValue={mobile}
+        onInputChange={input => setMobile(input)}
       />
       <CustomInput
         placeholderText={'Enter New Password'}
         inputStyle={styles.input}
+        inputValue={password}
+        onInputChange={input => setPassword(input)}
       />
       <CustomInput
         placeholderText={'Confirm Password'}
         inputStyle={styles.input}
+        inputValue={confirmPassword}
+        onInputChange={input => setConfirmPassword(input)}
       />
       <CustomButton
         title={'SignUp'}
         btnStyle={styles.btnStyle}
         btnTextStyle={styles.btnTextStyle}
-        onClick={() => {}}
+        onClick={() => {
+          addUser();
+        }}
       />
       <Text
         style={styles.login}

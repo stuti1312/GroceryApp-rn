@@ -27,7 +27,11 @@ const Profile = ({navigation}) => {
         <TouchableOpacity onPress={() => {}} style={styles.tabs}>
           <Text style={styles.headings}>Payment Method</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}} style={styles.tabs}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('login', {is_LoggedOut: true});
+          }}
+          style={styles.tabs}>
           <Text style={styles.headings}>LOGOUT</Text>
         </TouchableOpacity>
       </View>
@@ -61,7 +65,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#DBDBDB',
     justifyContent: 'center',
     paddingLeft: 20,
-    marginTop:10
+    marginTop: 10,
   },
   headings: {color: Colors.BLACK},
 });
