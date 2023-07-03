@@ -25,7 +25,9 @@ const ProductDetails = ({navigation, route}) => {
   const itemData = route?.params?.data;
   const onShare = async data => {
     await Share.share({
-      message: `Please check this out! ${'\n'}${data.title} ${'\n'}${data.image}`,
+      message: `Please check this out! ${'\n'}${data.title} ${'\n'}${
+        data.image
+      }`,
     });
   };
   const checkLoginStatus = async () => {
@@ -84,7 +86,7 @@ const ProductDetails = ({navigation, route}) => {
         <TouchableOpacity
           style={styles.wishlistBtn}
           onPress={() => {
-            checkLoginStatus() === true
+            checkLoginStatus()
               ? dispatch(addItemToWishlist(itemData))
               : setModalVisible(true);
           }}>
@@ -108,7 +110,7 @@ const ProductDetails = ({navigation, route}) => {
           btnTextStyle={styles.btnTextStyle}
           btnStyle={styles.btnStyle}
           onClick={() => {
-            checkLoginStatus() === true
+            checkLoginStatus()
               ? dispatch(addToCart({...itemData, qty: quantity}))
               : setModalVisible(true);
           }}

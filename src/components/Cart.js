@@ -16,6 +16,7 @@ import {
   reduceItemQtyInCart,
   removeItemFromCart,
 } from '../redux/slices/CartSlice';
+import CheckoutTab from '../reusables/CheckoutTab';
 
 const Cart = ({navigation}) => {
   const cartItems = useSelector(state => state.cart);
@@ -24,6 +25,13 @@ const Cart = ({navigation}) => {
     setaddedItems(cartItems.data);
   }, [cartItems]);
   const dispatch = useDispatch();
+  const getTotal = () => {
+    let total = 0;
+    addedItems.map(item => {
+      total = total + item.qty * item.price;
+    });
+    return total.toFixed(1);
+  };
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -76,7 +84,7 @@ const Cart = ({navigation}) => {
   };
 
   return (
-    <View>
+    <View styles={styles.container}>
       <CustomHeader
         title={'Cart Items'}
         leftIcon={require('../assests/icons/backArrow.png')}
@@ -84,7 +92,20 @@ const Cart = ({navigation}) => {
           navigation.goBack();
         }}
       />
-      <CustomFlatlist listData={addedItems} listRenderItem={renderItem} />
+      {addedItems.length > 0 ? (
+        <>
+          <CustomFlatlist listData={addedItems} listRenderItem={renderItem} />
+          <CheckoutTab
+            total={getTotal()}
+            items={addedItems.length}
+            navigation={navigation}
+          />
+        </>
+      ) : (
+        <View style={styles.noItems}>
+          <Text style={styles.operands}>No items in cart</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -92,6 +113,7 @@ const Cart = ({navigation}) => {
 export default Cart;
 
 const styles = StyleSheet.create({
+  container: {flex: 1,},
   listItems: {
     width: Dimensions.get('window').width,
     height: 100,
@@ -125,4 +147,9 @@ const styles = StyleSheet.create({
   },
   operands: {fontSize: 16, fontWeight: '600', color: Colors.BLACK},
   quantity: {marginHorizontal: 5},
+  noItems: {
+    height: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

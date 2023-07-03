@@ -15,5 +15,5 @@ const CustomFlatlist = ({listData, listRenderItem}) => {
 export default CustomFlatlist;
 
 const styles = StyleSheet.create({
-  list: {marginHorizontal: 10, marginBottom: 70},
+  list: {marginHorizontal: 10, marginBottom: 70,height:"80.5%"},
 });
