@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 20,
     fontWeight: '800',
-    color: 'green',
+    color: Colors.GREEN,
     marginTop: 10,
     marginLeft: 20,
   },
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     height: 45,
     width: 45,
     borderRadius: 45 / 2,
-    backgroundColor: 'lightgrey',
+    backgroundColor: Colors.LIGHT_GREY,
   },
   wishlistIcon: {height: 25, width: 25},
   scrollviewMargin: {marginVertical: 10},

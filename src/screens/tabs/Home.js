@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   productImage: {width: 100, height: 100, margin: 10, alignSelf: 'center'},
   itemDetails: {padding: 10},
   name: {fontSize: 18, fontWeight: '600'},
-  price: {fontSize: 18, fontWeight: '600', color: 'green', marginTop: 10},
+  price: {fontSize: 18, fontWeight: '600', color: Colors.GREEN, marginTop: 10},
   loader: {
     flex: 1,
     alignSelf: 'center',

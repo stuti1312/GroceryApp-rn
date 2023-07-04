@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  price: {fontSize: 18, fontWeight: '600', color: 'green'},
+  price: {fontSize: 18, fontWeight: '600', color: Colors.GREEN},
   qtyContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',

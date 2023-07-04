@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderBottomWidth: 0.5,
     alignSelf: 'center',
-    borderBottomColor: '#DBDBDB',
+    borderBottomColor: Colors.LIGHT_GREY,
     justifyContent: 'center',
     paddingLeft: 20,
     marginTop: 10,

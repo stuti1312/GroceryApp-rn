@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     width: '20%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'skyblue',
+    backgroundColor: Colors.SKYBLUE,
   },
   imageStyle: {height: 24, width: 24},
 });
