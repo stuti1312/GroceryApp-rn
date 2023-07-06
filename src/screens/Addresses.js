@@ -5,25 +5,23 @@ import Colors from '../constants/Colors';
 import CustomButton from '../reusables/CustomButton';
 import {useDispatch, useSelector} from 'react-redux';
 import CustomFlatlist from '../reusables/CustomFlatlist';
-import {useIsFocused} from '@react-navigation/native';
 import CustomImage from '../reusables/CustomImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {deleteAddress} from '../redux/slices/AddressSlice';
 
 const Addresses = ({navigation}) => {
   const newAddress = useSelector(state => state.address.data);
-  const isFocused = useIsFocused();
-  const [addedAddress, setaddedAddress] = useState([]);
-  useEffect(() => {
-    setaddedAddress(newAddress);
-  }, [isFocused]);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const defaultAddress = async item => {
     await AsyncStorage.setItem(
       'MY_ADDRESS',
       `${item.streetName},${item.cityName},${item.stateName},${item.pincodeNo},${item.addressType}`,
     );
+    navigation.goBack();
+  };
+  const removeAddress = async item => {
+    await AsyncStorage.removeItem('MY_ADDRESS');
     navigation.goBack();
   };
   const renderItem = ({item, index}) => {
@@ -48,21 +46,25 @@ const Addresses = ({navigation}) => {
         </View>
         <View style={styles.type}>
           <Text style={styles.addressType}>{item.addressType}</Text>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             onPress={() => {
-              // dispatch(deleteAddress(item.id));
+              dispatch(deleteAddress(item.id));
+              removeAddress();
             }}>
             <CustomImage
               imageSrc={require('../assests/icons/delete.png')}
               imageStyle={[styles.icon, styles.deleteEditIcon]}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('addAddress', {btnType: 'edit', data: item});
+            }}>
             <CustomImage
               imageSrc={require('../assests/icons/edit.png')}
               imageStyle={[styles.icon, styles.deleteEditIcon]}
             />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     );
@@ -77,7 +79,7 @@ const Addresses = ({navigation}) => {
         }}
       />
       <CustomFlatlist
-        listData={addedAddress}
+        listData={newAddress}
         listRenderItem={renderItem}
         isCheckout={true}
       />
@@ -86,7 +88,7 @@ const Addresses = ({navigation}) => {
         title={'+'}
         btnTextStyle={styles.add}
         onClick={() => {
-          navigation.navigate('addAddress');
+          navigation.navigate('addAddress', {btnType: 'new'});
         }}
       />
     </View>

@@ -21,7 +21,11 @@ const Profile = ({navigation}) => {
         <TouchableOpacity onPress={() => {}} style={styles.tabs}>
           <Text style={styles.headings}>Orders</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}} style={styles.tabs}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('addresses');
+          }}
+          style={styles.tabs}>
           <Text style={styles.headings}>Addresses</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {}} style={styles.tabs}>

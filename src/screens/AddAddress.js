@@ -1,15 +1,17 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
-// import uuid from 'react-native-uuid';
+import uuid from 'react-native-uuid';
 import {useDispatch} from 'react-redux';
-import {AddNewAddress} from '../redux/slices/AddressSlice';
+import {AddNewAddress, updateAddress} from '../redux/slices/AddressSlice';
 import CustomHeader from '../reusables/CustomHeader';
 import CustomInput from '../reusables/CustomInput';
 import CustomImage from '../reusables/CustomImage';
 import CustomButton from '../reusables/CustomButton';
 import Colors from '../constants/Colors';
 
-const AddAddress = ({navigation}) => {
+const AddAddress = ({navigation, route}) => {
+  const addressData = route?.params?.data;
+  const btnType = route?.params?.btnType;
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [street, setStreet] = useState('');
@@ -24,7 +26,7 @@ const AddAddress = ({navigation}) => {
   return (
     <View style={styles.container}>
       <CustomHeader
-        title={'Add Address'}
+        title={btnType == 'edit' ? 'Edit Address' : 'Add Address'}
         leftIcon={require('../assests/icons/backArrow.png')}
         onClickLeftIcon={() => {
           navigation.goBack();
@@ -32,7 +34,9 @@ const AddAddress = ({navigation}) => {
       />
       <View style={styles.screen}>
         <CustomInput
-          placeholderText={'Enter your Street'}
+          placeholderText={
+            btnType == 'edit' ? 'Edit Street' : 'Enter your Street'
+          }
           inputValue={street}
           onInputChange={text => {
             setStreet(text);
@@ -40,7 +44,7 @@ const AddAddress = ({navigation}) => {
           inputStyle={styles.input}
         />
         <CustomInput
-          placeholderText={'Enter your City'}
+          placeholderText={btnType == 'edit' ? 'Edit City' : 'Enter your City'}
           inputValue={city}
           onInputChange={text => {
             setCity(text);
@@ -48,7 +52,9 @@ const AddAddress = ({navigation}) => {
           inputStyle={styles.input}
         />
         <CustomInput
-          placeholderText={'Enter your State'}
+          placeholderText={
+            btnType == 'edit' ? 'Edit State' : 'Enter your State'
+          }
           inputValue={state}
           onInputChange={text => {
             setState(text);
@@ -56,7 +62,9 @@ const AddAddress = ({navigation}) => {
           inputStyle={styles.input}
         />
         <CustomInput
-          placeholderText={'Enter your Pincode'}
+          placeholderText={
+            btnType == 'edit' ? 'Edit Pincode' : 'Enter your Pincode'
+          }
           inputValue={pincode}
           onInputChange={text => {
             setPincode(text);
@@ -102,22 +110,41 @@ const AddAddress = ({navigation}) => {
         <CustomButton
           title={'Save Address'}
           onClick={() => {
-            dispatch(
-              AddNewAddress({
-                stateName: state,
-                cityName: city,
-                streetName: street,
-                pincodeNo: pincode,
-                addressType:
-                  selectedTab == 0
-                    ? 'Home'
-                    : selectedTab == 1
-                    ? 'Work'
-                    : 'Other',
-                // id: uuid.v4(),
-              }),
-            );
-            navigation.goBack();
+            if (btnType == 'edit') {
+              dispatch(
+                updateAddress({
+                  stateName: state,
+                  cityName: city,
+                  streetName: street,
+                  pincodeNo: pincode,
+                  addressType:
+                    selectedTab == 0
+                      ? 'Home'
+                      : selectedTab == 1
+                      ? 'Work'
+                      : 'Other',
+                  id: addressData.id,
+                }),
+              );
+              navigation.goBack();
+            } else {
+              dispatch(
+                AddNewAddress({
+                  stateName: state,
+                  cityName: city,
+                  streetName: street,
+                  pincodeNo: pincode,
+                  addressType:
+                    selectedTab == 0
+                      ? 'Home'
+                      : selectedTab == 1
+                      ? 'Work'
+                      : 'Other',
+                  id: uuid.v4(),
+                }),
+              );
+              navigation.goBack();
+            }
           }}
           btnStyle={styles.saveBtn}
           btnTextStyle={styles.save}

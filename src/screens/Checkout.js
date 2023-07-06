@@ -7,19 +7,19 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import Colors from '../constants/Colors';
-import CustomHeader from '../reusables/CustomHeader';
 import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useIsFocused} from '@react-navigation/native';
 import CustomImage from '../reusables/CustomImage';
 import {
   addToCart,
   reduceItemQtyInCart,
   removeItemFromCart,
 } from '../redux/slices/CartSlice';
+import Colors from '../constants/Colors';
+import CustomHeader from '../reusables/CustomHeader';
 import CustomFlatlist from '../reusables/CustomFlatlist';
 import CustomButton from '../reusables/CustomButton';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useIsFocused} from '@react-navigation/native';
 
 const Checkout = ({navigation}) => {
   const cartItems = useSelector(state => state.cart);
@@ -28,22 +28,23 @@ const Checkout = ({navigation}) => {
   const [selectedAddress, setselectedAddress] = useState(
     'Please select address',
   );
+  const dispatch = useDispatch();
   const isFocused = useIsFocused();
-
   useEffect(() => {
     setaddedItems(cartItems.data);
   }, [cartItems]);
-  const dispatch = useDispatch();
   useEffect(() => {
     getSelectedAddress();
   }, [isFocused]);
+
   const getSelectedAddress = async () => {
     const value = await AsyncStorage.getItem('MY_ADDRESS');
     if (value !== null) {
       setselectedAddress(value);
+    } else {
+      setselectedAddress('Please select address');
     }
   };
-
   const getTotal = () => {
     let total = 0;
     addedItems.map(item => {
