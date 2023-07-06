@@ -18,16 +18,32 @@ import {
 } from '../redux/slices/CartSlice';
 import CustomFlatlist from '../reusables/CustomFlatlist';
 import CustomButton from '../reusables/CustomButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useIsFocused} from '@react-navigation/native';
 
 const Checkout = ({navigation}) => {
   const cartItems = useSelector(state => state.cart);
   const [addedItems, setaddedItems] = useState([]);
   const [selectedTab, setselectedTab] = useState(0);
-  const [selectAddress, setselectAddress] = useState('Please select address');
+  const [selectedAddress, setselectedAddress] = useState(
+    'Please select address',
+  );
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     setaddedItems(cartItems.data);
   }, [cartItems]);
   const dispatch = useDispatch();
+  useEffect(() => {
+    getSelectedAddress();
+  }, [isFocused]);
+  const getSelectedAddress = async () => {
+    const value = await AsyncStorage.getItem('MY_ADDRESS');
+    if (value !== null) {
+      setselectedAddress(value);
+    }
+  };
+
   const getTotal = () => {
     let total = 0;
     addedItems.map(item => {
@@ -111,7 +127,7 @@ const Checkout = ({navigation}) => {
           <Text style={styles.title}>Total:</Text>
           <Text style={styles.title}>${getTotal()}</Text>
         </View>
-        <Text style={styles.title}>SelectPayment Mode</Text>
+        <Text style={styles.title}>Select Payment Mode</Text>
         {payment.map(item => (
           <TouchableOpacity
             style={styles.payment}
@@ -138,17 +154,19 @@ const Checkout = ({navigation}) => {
         ))}
         <View style={styles.addressHeading}>
           <Text style={styles.addressTitle}>Address</Text>
-          <TouchableOpacity onPress={() => {}}>
-            <Text
-              style={[
-                styles.address,
-                {color: Colors.SKYBLUE, textDecorationLine: 'underline'},
-              ]}>
-              Edit Address
-            </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('addresses');
+            }}
+            style={styles.edit}>
+            <CustomImage
+              imageSrc={require('../assests/icons/edit.png')}
+              imageStyle={styles.editBtn}
+            />
+            <Text style={styles.editText}>Edit Address</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.address}>{selectAddress}</Text>
+        <Text style={styles.address}>{selectedAddress}</Text>
         <CustomButton
           title={'CHECKOUT'}
           btnStyle={styles.btn}
@@ -223,7 +241,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 30,
   },
-  addressTitle: {color: Colors.BLACK, fontSize: 18},
+  addressTitle: {
+    color: Colors.BLACK,
+    fontSize: 18,
+    width: '70%',
+  },
   address: {
     fontSize: 16,
     color: Colors.DARK_GREY,
@@ -232,4 +254,18 @@ const styles = StyleSheet.create({
   },
   btn: {backgroundColor: Colors.GREEN, width: '90%', margin: 20},
   btnText: {color: Colors.WHITE},
+  edit: {flexDirection: 'row', alignItems: 'center', width: '30%'},
+  editBtn: {
+    width: 15,
+    height: 15,
+    tintColor: Colors.SKYBLUE,
+    marginRight: 5,
+    alignSelf: 'center',
+  },
+  editText: {
+    fontSize: 16,
+    color: Colors.SKYBLUE,
+    textDecorationLine: 'underline',
+    alignSelf: 'center',
+  },
 });
