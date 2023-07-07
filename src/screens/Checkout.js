@@ -14,6 +14,7 @@ import RazorpayCheckout from 'react-native-razorpay';
 import CustomImage from '../reusables/CustomImage';
 import {
   addToCart,
+  emptyCart,
   reduceItemQtyInCart,
   removeItemFromCart,
 } from '../redux/slices/CartSlice';
@@ -21,6 +22,7 @@ import Colors from '../constants/Colors';
 import CustomHeader from '../reusables/CustomHeader';
 import CustomFlatlist from '../reusables/CustomFlatlist';
 import CustomButton from '../reusables/CustomButton';
+import {orderItem} from '../redux/slices/OrderSlice';
 
 const Checkout = ({navigation}) => {
   const cartItems = useSelector(state => state.cart);
@@ -59,6 +61,18 @@ const Checkout = ({navigation}) => {
     {mode: 'UPI', index: 2},
     {mode: 'Cash On Delivery', index: 3},
   ];
+  const orderPlace = paymentId => {
+    const data = {
+      items: addedItems,
+      amount: getTotal(),
+      address: selectedAddress,
+      paymentID: paymentId,
+      paymentStatus: selectedTab == 3 ? 'Pending' : 'Success',
+    };
+    dispatch(orderItem(data));
+    dispatch(emptyCart());
+    navigation.navigate('orderPlaced');
+  };
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -173,26 +187,28 @@ const Checkout = ({navigation}) => {
           title={'Pay & Order'}
           btnStyle={styles.btn}
           btnTextStyle={styles.btnText}
-          onClick={()=>{
+          onClick={() => {
             var options = {
               description: 'Credits towards consultation',
               image: 'https://i.imgur.com/3g7nmJC.png',
               currency: 'INR',
               key: 'rzp_test_hWGIu2oanYQkXG',
-              amount: '5000',
-              name: 'foo',
+              amount: getTotal() * 100,
+              name: 'Vinnii Singhal',
               prefill: {
-                email: 'void@razorpay.com',
-                contact: '9191919191',
-                name: 'Razorpay Software'
+                email: '13vinnii25@gmail.com',
+                contact: '7987372460',
+                name: 'Razorpay Software',
               },
-              theme: {color: '#3E8BFF'}
-            }
-            RazorpayCheckout.open(options).then((data) => {
-              alert(`Success: ${data.razorpay_payment_id}`);
-            }).catch((error) => {
-              alert(`Error: ${error.code} | ${error.description}`);
-            });
+              theme: {color: '#3E8BFF'},
+            };
+            RazorpayCheckout.open(options)
+              .then(data => {
+                orderPlace(data.razorpay_payment_id);
+              })
+              .catch(error => {
+                alert(`Error: ${error.code} | ${error.description}`);
+              });
           }}
         />
       </ScrollView>
