@@ -10,6 +10,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useIsFocused} from '@react-navigation/native';
+import RazorpayCheckout from 'react-native-razorpay';
 import CustomImage from '../reusables/CustomImage';
 import {
   addToCart,
@@ -169,9 +170,30 @@ const Checkout = ({navigation}) => {
         </View>
         <Text style={styles.address}>{selectedAddress}</Text>
         <CustomButton
-          title={'CHECKOUT'}
+          title={'Pay & Order'}
           btnStyle={styles.btn}
           btnTextStyle={styles.btnText}
+          onClick={()=>{
+            var options = {
+              description: 'Credits towards consultation',
+              image: 'https://i.imgur.com/3g7nmJC.png',
+              currency: 'INR',
+              key: 'rzp_test_hWGIu2oanYQkXG',
+              amount: '5000',
+              name: 'foo',
+              prefill: {
+                email: 'void@razorpay.com',
+                contact: '9191919191',
+                name: 'Razorpay Software'
+              },
+              theme: {color: '#3E8BFF'}
+            }
+            RazorpayCheckout.open(options).then((data) => {
+              alert(`Success: ${data.razorpay_payment_id}`);
+            }).catch((error) => {
+              alert(`Error: ${error.code} | ${error.description}`);
+            });
+          }}
         />
       </ScrollView>
     </View>
