@@ -62,16 +62,53 @@ const Checkout = ({navigation}) => {
     {mode: 'Cash On Delivery', index: 3},
   ];
   const orderPlace = paymentId => {
+    let dd = new Date().getDate;
+    let mm = new Date().getMonth + 1;
+    let yyyy = new Date().getFullYear;
+    let h = new Date().getHours;
+    let m = new Date().getMinutes;
+    let meridian = '';
+    if (h > 12) {
+      meridian = 'PM';
+    } else {
+      meridian = 'AM';
+    }
+    let orderedDate = `${dd}/${mm}/${yyyy} ${h}:${m} ${meridian}`;
     const data = {
       items: addedItems,
       amount: getTotal(),
       address: selectedAddress,
       paymentID: paymentId,
       paymentStatus: selectedTab == 3 ? 'Pending' : 'Success',
+      orderedAt: orderedDate,
     };
     dispatch(orderItem(data));
     dispatch(emptyCart());
     navigation.navigate('orderPlaced');
+  };
+
+  const payNow = () => {
+    var options = {
+      description: 'Credits towards consultation',
+      image: 'https://i.imgur.com/3g7nmJC.png',
+      currency: 'INR',
+      key: 'rzp_test_hWGIu2oanYQkXG',
+      amount: getTotal() * 100,
+      name: 'Vinnii Singhal',
+      prefill: {
+        email: '13vinnii25@gmail.com',
+        contact: '7987372460',
+        name: 'Razorpay Software',
+      },
+      theme: {color: '#3E8BFF'},
+    };
+    RazorpayCheckout.open(options)
+      .then(data => {
+        orderPlace(data.razorpay_payment_id);
+      })
+      .catch(error => {
+        alert(`Error: ${error.code} | ${error.description}`);
+      });
   };
   const renderItem = ({item, index}) => {
     return (
@@ -188,27 +225,7 @@ const Checkout = ({navigation}) => {
           btnStyle={styles.btn}
           btnTextStyle={styles.btnText}
           onClick={() => {
-            var options = {
-              description: 'Credits towards consultation',
-              image: 'https://i.imgur.com/3g7nmJC.png',
-              currency: 'INR',
-              key: 'rzp_test_hWGIu2oanYQkXG',
-              amount: getTotal() * 100,
-              name: 'Vinnii Singhal',
-              prefill: {
-                email: '13vinnii25@gmail.com',
-                contact: '7987372460',
-                name: 'Razorpay Software',
-              },
-              theme: {color: '#3E8BFF'},
-            };
-            RazorpayCheckout.open(options)
-              .then(data => {
-                orderPlace(data.razorpay_payment_id);
-              })
-              .catch(error => {
-                alert(`Error: ${error.code} | ${error.description}`);
-              });
+            payNow();
           }}
         />
       </ScrollView>
