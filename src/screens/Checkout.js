@@ -94,10 +94,10 @@ const Checkout = ({navigation}) => {
       currency: 'INR',
       key: 'rzp_test_hWGIu2oanYQkXG',
       amount: getTotal() * 100,
-      name: 'Vinnii Singhal',
+      name: 'Vinni Singhal',
       prefill: {
-        email: '13vinnii25@gmail.com',
-        contact: '7987372460',
+        email: 'vinniSinghal@gmail.com',
+        contact: '9111111111',
         name: 'Razorpay Software',
       },
       theme: {color: '#3E8BFF'},

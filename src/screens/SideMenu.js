@@ -1,9 +1,10 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Dashboard from './Dashboard';
-import Home from './tabs/Home';
 import Profile from './tabs/Profile';
 import About from './drawer/About';
+import Help from './Help';
+import Colors from '../constants/Colors';
 
 const Drawer = createDrawerNavigator();
 const SideMenu = () => {
@@ -12,15 +13,38 @@ const SideMenu = () => {
       <Drawer.Screen
         name="dashboard"
         component={Dashboard}
-        options={{headerShown: false}}
+        options={{headerShown: false, title: 'Dasboard'}}
       />
       <Drawer.Screen
-        name="home"
-        component={Home}
-        options={{headerShown: false}}
+        name="profile"
+        component={Profile}
+        options={{
+          title: 'Profile',
+          headerStyle: {backgroundColor: Colors.SKYBLUE},
+          headerTintColor: Colors.WHITE,
+          headerTitleStyle: {color: Colors.WHITE},
+        }}
       />
-      <Drawer.Screen name="profile" component={Profile} />
-      <Drawer.Screen name="about" component={About} />
+      <Drawer.Screen
+        name="about"
+        component={About}
+        options={{
+          title: 'About',
+          headerStyle: {backgroundColor: Colors.SKYBLUE},
+          headerTintColor: Colors.WHITE,
+          headerTitleStyle: {color: Colors.WHITE},
+        }}
+      />
+      <Drawer.Screen
+        name="help"
+        component={Help}
+        options={{
+          title: 'Help & feedback',
+          headerStyle: {backgroundColor: Colors.SKYBLUE},
+          headerTintColor: Colors.WHITE,
+          headerTitleStyle: {color: Colors.WHITE},
+        }}
+      />
     </Drawer.Navigator>
   );
 };

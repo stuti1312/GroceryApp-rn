@@ -56,7 +56,13 @@ const Wishlist = ({navigation}) => {
         }}
         title={'Wistlist Items'}
       />
-      <CustomFlatlist listData={addedItems} listRenderItem={renderItem} />
+      {addedItems.length > 0 ? (
+        <CustomFlatlist listData={addedItems} listRenderItem={renderItem} />
+      ) : (
+        <View style={styles.noItems}>
+          <Text style={styles.noItemText}>No Items</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -76,4 +82,10 @@ const styles = StyleSheet.create({
   itemDetails: {padding: 10},
   name: {fontSize: 18, fontWeight: '600'},
   price: {fontSize: 18, fontWeight: '600', color: Colors.GREEN, marginTop: 10},
+  noItemText: {fontSize: 16, fontWeight: '600', color: Colors.BLACK},
+  noItems: {
+    height: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

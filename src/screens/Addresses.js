@@ -1,13 +1,13 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import CustomHeader from '../reusables/CustomHeader';
-import Colors from '../constants/Colors';
-import CustomButton from '../reusables/CustomButton';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import CustomFlatlist from '../reusables/CustomFlatlist';
-import CustomImage from '../reusables/CustomImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {deleteAddress} from '../redux/slices/AddressSlice';
+import CustomHeader from '../reusables/CustomHeader';
+import CustomButton from '../reusables/CustomButton';
+import CustomFlatlist from '../reusables/CustomFlatlist';
+import CustomImage from '../reusables/CustomImage';
+import Colors from '../constants/Colors';
 
 const Addresses = ({navigation}) => {
   const newAddress = useSelector(state => state.address.data);
@@ -78,11 +78,17 @@ const Addresses = ({navigation}) => {
           navigation.goBack();
         }}
       />
-      <CustomFlatlist
-        listData={newAddress}
-        listRenderItem={renderItem}
-        isCheckout={true}
-      />
+      {newAddress.length > 0 ? (
+        <CustomFlatlist
+          listData={newAddress}
+          listRenderItem={renderItem}
+          isCheckout={true}
+        />
+      ) : (
+        <View style={styles.noItems}>
+          <Text style={styles.noItemText}>No Address Saved</Text>
+        </View>
+      )}
       <CustomButton
         btnStyle={styles.btn}
         title={'+'}
@@ -143,6 +149,12 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     backgroundColor: Colors.SKYBLUE,
     borderRadius: 10,
+  },
+  noItemText: {fontSize: 16, fontWeight: '600', color: Colors.BLACK},
+  noItems: {
+    height: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   deleteEditIcon: {marginTop: 5, alignSelf: 'flex-end'},
 });

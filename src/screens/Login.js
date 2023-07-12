@@ -22,7 +22,7 @@ const Login = ({navigation, route}) => {
         }
       })
       .catch(error => {
-        Alert.alert('No user Found');
+        Alert.alert(`Incorrect credentials!\nPlease check the email or password`);
       });
   };
   const loggedIn = async () => {

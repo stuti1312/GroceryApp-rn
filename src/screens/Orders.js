@@ -51,7 +51,13 @@ const Orders = ({navigation}) => {
         }}
         title="Your Orders"
       />
-      <CustomFlatlist listData={orderedItems} listRenderItem={renderItem} />
+      {orderedItems.length > 0 ? (
+        <CustomFlatlist listData={orderedItems} listRenderItem={renderItem} />
+      ) : (
+        <View style={styles.noItems}>
+          <Text style={styles.noItemText}>No Orders</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -75,6 +81,12 @@ const styles = StyleSheet.create({
   loader: {
     flex: 1,
     alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  noItemText: {fontSize: 16, fontWeight: '600', color: Colors.BLACK},
+  noItems: {
+    height: '90%',
+    alignItems: 'center',
     justifyContent: 'center',
   },
 });
