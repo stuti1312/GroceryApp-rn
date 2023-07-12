@@ -24,9 +24,10 @@ const Search = ({navigation}) => {
     });
     setsearchedItemList(newData);
   };
-  const renderItem = ({item}) => {
+  const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
+        key={index}
         style={styles.listItems}
         onPress={() => {
           navigation.navigate('productDetails', {data: item});
@@ -97,15 +98,16 @@ const Search = ({navigation}) => {
 export default Search;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: Colors.WHITE},
+  container: {flex: 1},
   searchbar: {
     margin: 10,
     paddingHorizontal: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 15,
+    borderWidth: 0.3,
+    borderRadius: 10,
+    backgroundColor: Colors.WHITE,
   },
   input: {
     width: '80%',
@@ -127,7 +129,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  productImage: {width: 100, height: 100, margin: 10, alignSelf: 'center'},
+  productImage: {
+    width: 100,
+    height: 100,
+    margin: 10,
+    alignSelf: 'center',
+    resizeMode: 'center',
+  },
   itemDetails: {padding: 10},
   name: {fontSize: 18, fontWeight: '600'},
   price: {fontSize: 18, fontWeight: '600', color: Colors.GREEN, marginTop: 10},

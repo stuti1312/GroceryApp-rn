@@ -14,9 +14,10 @@ import Colors from '../constants/Colors';
 
 const Orders = ({navigation}) => {
   const orderedItems = useSelector(state => state.order.data);
-  const renderItem = ({item}) => {
+  const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
+        key={index}
         style={styles.listItems}
         onPress={() => {
           navigation.navigate('productDetails', {data: item});
@@ -74,7 +75,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  productImage: {width: 100, height: 100, margin: 10, alignSelf: 'center'},
+  productImage: {
+    width: 100,
+    height: 100,
+    margin: 10,
+    alignSelf: 'center',
+    resizeMode: 'center',
+  },
   itemDetails: {padding: 10},
   name: {fontSize: 18, fontWeight: '600'},
   price: {fontSize: 18, fontWeight: '600', color: Colors.GREEN, marginTop: 10},

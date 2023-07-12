@@ -35,6 +35,7 @@ const Cart = ({navigation}) => {
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
+        key={index}
         style={styles.listItems}
         onPress={() => {
           navigation.navigate('productDetails', {data: item});
@@ -113,7 +114,7 @@ const Cart = ({navigation}) => {
 export default Cart;
 
 const styles = StyleSheet.create({
-  container: {flex: 1,},
+  container: {flex: 1},
   listItems: {
     width: Dimensions.get('window').width,
     height: 100,
@@ -122,7 +123,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  productImage: {width: 100, height: 100, margin: 10, alignSelf: 'center'},
+  productImage: {
+    width: 100,
+    height: 100,
+    margin: 10,
+    alignSelf: 'center',
+    resizeMode: 'center',
+  },
   itemDetails: {padding: 10},
   name: {fontSize: 18, fontWeight: '600'},
   qtyPrice: {

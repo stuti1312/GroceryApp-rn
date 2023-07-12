@@ -30,6 +30,7 @@ const ProductDetails = ({navigation, route}) => {
       }`,
     });
   };
+  const [wishlistPressed, setWishlistPressed] = useState(false);
   const checkLoginStatus = async () => {
     let isUserLoggedIn = false;
     const loginStatus = await AsyncStorage.getItem('IS_USER_LOGGED_IN');
@@ -86,13 +87,21 @@ const ProductDetails = ({navigation, route}) => {
         <TouchableOpacity
           style={styles.wishlistBtn}
           onPress={() => {
+            setWishlistPressed(true);
             checkLoginStatus()
               ? dispatch(addItemToWishlist(itemData))
               : setModalVisible(true);
           }}>
           <CustomImage
-            imageSrc={require('../assests/icons/wishlist.png')}
-            imageStyle={styles.wishlistIcon}
+            imageSrc={
+              wishlistPressed == true
+                ? require('../assests/icons/wishlist_fill.png')
+                : require('../assests/icons/wishlist.png')
+            }
+            imageStyle={[
+              styles.wishlistIcon,
+              {tintColor: wishlistPressed == true ? 'red' : Colors.BLACK},
+            ]}
           />
         </TouchableOpacity>
         <TouchableOpacity
