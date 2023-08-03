@@ -37,6 +37,13 @@ const Profile = ({navigation}) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
+            navigation.navigate('timer');
+          }}
+          style={styles.tabs}>
+          <Text style={styles.headings}>Stopwatch</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
             navigation.navigate('login', {is_LoggedOut: true});
           }}
           style={styles.tabs}>
