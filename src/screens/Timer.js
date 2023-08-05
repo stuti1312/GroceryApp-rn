@@ -12,6 +12,8 @@ const Timer = () => {
       timerInterval = setInterval(() => {
         setTime(prevTime => prevTime + 1);
       }, 1000);
+    } else {
+      clearInterval(timerInterval);
     }
 
     return () => clearInterval(timerInterval);
@@ -30,21 +32,12 @@ const Timer = () => {
     <View style={styles.container}>
       <Text style={styles.timerText}>{time} seconds</Text>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={isRunning ? handleReset : handleStart}>
-          <Text style={styles.buttonText}>{isRunning ? 'Reset' : 'Start'}</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity
-          style={styles.button}
-          onPress={handleStart}>
+        <TouchableOpacity style={styles.button} onPress={handleStart}>
           <Text style={styles.buttonText}>Start</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleReset}>
+        <TouchableOpacity style={styles.button} onPress={handleReset}>
           <Text style={styles.buttonText}>Reset</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
     </View>
   );
