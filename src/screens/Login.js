@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CustomInput from '../reusables/CustomInput';
 import CustomButton from '../reusables/CustomButton';
 import Colors from '../constants/Colors';
+import SocialLogin from './SocialLogin';
 
 const Login = ({navigation, route}) => {
   const [email, setEmail] = useState('');
@@ -65,6 +66,7 @@ const Login = ({navigation, route}) => {
         }}>
         SignUp
       </Text>
+      <SocialLogin />
     </View>
   );
 };
