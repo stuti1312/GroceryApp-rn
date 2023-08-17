@@ -1,4 +1,10 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import CustomImage from '../../reusables/CustomImage';
 import Colors from '../../constants/Colors';
@@ -6,50 +12,59 @@ import Colors from '../../constants/Colors';
 const Profile = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <CustomImage
-        imageSrc={require('../../assests/icons/userProfile.png')}
-        imageStyle={styles.image}
-      />
-      <Text style={styles.name}>{'Stuti'}</Text>
-      <Text style={[styles.name, {fontSize: 16}]}>
-        {'stutisinghal1312@gmail.com'}
-      </Text>
-      <View style={styles.details}>
-        <TouchableOpacity onPress={() => {}} style={styles.tabs}>
-          <Text style={styles.headings}>Edit Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('orders');
-          }}
-          style={styles.tabs}>
-          <Text style={styles.headings}>Orders</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('addresses');
-          }}
-          style={styles.tabs}>
-          <Text style={styles.headings}>Addresses</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}} style={styles.tabs}>
-          <Text style={styles.headings}>Payment Method</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('timer');
-          }}
-          style={styles.tabs}>
-          <Text style={styles.headings}>Stopwatch</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('login', {is_LoggedOut: true});
-          }}
-          style={styles.tabs}>
-          <Text style={styles.headings}>LOGOUT</Text>
-        </TouchableOpacity>
-      </View>
+      <ScrollView>
+        <CustomImage
+          imageSrc={require('../../assests/icons/userProfile.png')}
+          imageStyle={styles.image}
+        />
+        <Text style={styles.name}>{'Stuti'}</Text>
+        <Text style={[styles.name, {fontSize: 16}]}>
+          {'stutisinghal1312@gmail.com'}
+        </Text>
+        <View style={styles.details}>
+          <TouchableOpacity onPress={() => {}} style={styles.tabs}>
+            <Text style={styles.headings}>Edit Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('orders');
+            }}
+            style={styles.tabs}>
+            <Text style={styles.headings}>Orders</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('addresses');
+            }}
+            style={styles.tabs}>
+            <Text style={styles.headings}>Addresses</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {}} style={styles.tabs}>
+            <Text style={styles.headings}>Payment Method</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('timer');
+            }}
+            style={styles.tabs}>
+            <Text style={styles.headings}>Stopwatch</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('map');
+            }}
+            style={styles.tabs}>
+            <Text style={styles.headings}>MAP</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('login', {is_LoggedOut: true});
+            }}
+            style={styles.tabs}>
+            <Text style={styles.headings}>LOGOUT</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };

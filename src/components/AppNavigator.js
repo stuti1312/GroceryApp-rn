@@ -12,6 +12,7 @@ import AddAddress from '../screens/AddAddress';
 import OrderPlaced from '../screens/OrderPlaced';
 import Orders from '../screens/Orders';
 import Timer from '../screens/Timer';
+import Map from '../screens/Map';
 
 const Stack = createNativeStackNavigator();
 
@@ -72,6 +73,11 @@ const AppNavigator = () => {
         <Stack.Screen
           name="timer"
           component={Timer}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="map"
+          component={Map}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
