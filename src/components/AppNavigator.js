@@ -13,6 +13,7 @@ import OrderPlaced from '../screens/OrderPlaced';
 import Orders from '../screens/Orders';
 import Timer from '../screens/Timer';
 import Map from '../screens/Map';
+import Biometrics from '../screens/Biometrics';
 
 const Stack = createNativeStackNavigator();
 
@@ -78,6 +79,11 @@ const AppNavigator = () => {
         <Stack.Screen
           name="map"
           component={Map}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="biometrics"
+          component={Biometrics}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

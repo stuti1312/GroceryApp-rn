@@ -58,6 +58,13 @@ const Profile = ({navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
+              navigation.navigate('biometrics');
+            }}
+            style={styles.tabs}>
+            <Text style={styles.headings}>Biometrics</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
               navigation.navigate('login', {is_LoggedOut: true});
             }}
             style={styles.tabs}>
